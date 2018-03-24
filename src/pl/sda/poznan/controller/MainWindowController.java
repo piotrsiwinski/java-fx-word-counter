@@ -47,4 +47,22 @@ public class MainWindowController {
     }
 
   }
+
+  public void saveToFile(ActionEvent actionEvent) {
+    FileChooser fileChooser = new FileChooser();
+    File file = fileChooser.showSaveDialog(mainBorderPane.getScene().getWindow());
+    String text = resultTextArea.getText();
+    // zapis do pliku
+
+    try {
+      Files.write(Paths.get(file.getAbsolutePath()), text.getBytes());
+      Alert alert = new Alert(AlertType.INFORMATION);
+      alert.setContentText("Zapis do pliku zakończony powodzeniem");
+      alert.showAndWait();
+    } catch (IOException e) {
+      Alert alert = new Alert(AlertType.ERROR);
+      alert.setContentText("Zapis do pliku zakończony błędem. Wybierz inny plik");
+      alert.showAndWait();
+    }
+  }
 }
